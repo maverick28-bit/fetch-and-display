@@ -104,16 +104,21 @@ const ProductList = ({ limit = 10 }: ProductListProps) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {products.map((product) => (
-        <ProductCard 
-          key={product.id} 
-          product={product}
-          onClick={() => {
-            // Could navigate to detailed product view
-            console.log('Product clicked:', product.id);
-          }}
-        />
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      {products.map((product, index) => (
+        <div 
+          key={product.id}
+          className="animate-fade-in"
+          style={{ animationDelay: `${index * 0.1}s` }}
+        >
+          <ProductCard 
+            product={product}
+            onClick={() => {
+              // Could navigate to detailed product view
+              console.log('Product clicked:', product.id);
+            }}
+          />
+        </div>
       ))}
     </div>
   );

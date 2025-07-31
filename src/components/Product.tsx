@@ -100,17 +100,21 @@ const Product = ({ productId = 1 }: ProductComponentProps) => {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-6">
-      <Card className="bg-product-card border-product-card-border shadow-[var(--shadow-card)] overflow-hidden transition-[var(--transition-smooth)] hover:shadow-[var(--shadow-elegant)]">
-        <CardContent className="p-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+    <div className="w-full max-w-4xl mx-auto p-6">
+      <Card className="bg-product-card border-product-card-border shadow-[var(--shadow-xl)] overflow-hidden transition-[var(--transition-spring)] hover:shadow-[var(--shadow-glow)] hover:scale-[1.02] relative group">
+        {/* Gradient overlay for premium look */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+        
+        <CardContent className="p-0 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Product Images */}
-            <div className="p-6 space-y-4">
-              <div className="relative overflow-hidden rounded-lg bg-secondary/50">
+            <div className="p-8 space-y-6">
+              <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-secondary/50 to-secondary/20 shadow-inner">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                 <img
                   src={product.thumbnail}
                   alt={product.title}
-                  className="w-full h-64 object-cover transition-transform duration-300 hover:scale-105"
+                  className="w-full h-80 object-cover transition-all duration-500 hover:scale-110 hover:rotate-1"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = '/placeholder.svg';
@@ -118,14 +122,15 @@ const Product = ({ productId = 1 }: ProductComponentProps) => {
                 />
               </div>
               
-              {/* Thumbnail Gallery */}
-              <div className="flex gap-2 overflow-x-auto">
+              {/* Enhanced Thumbnail Gallery */}
+              <div className="flex gap-3 overflow-x-auto pb-2">
                 {product.images.slice(0, 4).map((image, index) => (
-                  <div key={index} className="flex-shrink-0">
+                  <div key={index} className="flex-shrink-0 relative group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <img
                       src={image}
                       alt={`${product.title} view ${index + 1}`}
-                      className="h-16 w-16 object-cover rounded border border-product-card-border hover:border-primary transition-colors cursor-pointer"
+                      className="h-20 w-20 object-cover rounded-lg border-2 border-product-card-border hover:border-primary transition-all duration-300 cursor-pointer hover:scale-110 hover:-rotate-1"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/placeholder.svg';
@@ -136,18 +141,18 @@ const Product = ({ productId = 1 }: ProductComponentProps) => {
               </div>
             </div>
 
-            {/* Product Details */}
-            <div className="p-6 space-y-4">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Badge variant="secondary" className="text-xs">
+            {/* Enhanced Product Details */}
+            <div className="p-8 space-y-6 bg-gradient-to-br from-background/50 to-background/30 backdrop-blur-sm">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <Badge variant="secondary" className="text-xs font-medium px-3 py-1 bg-gradient-to-r from-primary/10 to-primary-glow/10 border-primary/20">
                     {product.category}
                   </Badge>
-                  <Badge variant="outline" className="text-xs">
+                  <Badge variant="outline" className="text-xs font-medium px-3 py-1 border-2">
                     {product.brand}
                   </Badge>
                 </div>
-                <h1 className="text-2xl font-bold text-foreground leading-tight">
+                <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent leading-tight">
                   {product.title}
                 </h1>
               </div>
@@ -166,29 +171,32 @@ const Product = ({ productId = 1 }: ProductComponentProps) => {
                 </Badge>
               </div>
 
-              {/* Price */}
-              <div className="space-y-1">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-price-highlight">
+              {/* Enhanced Price Section */}
+              <div className="space-y-2 p-4 rounded-xl bg-gradient-to-r from-price-highlight/10 to-transparent border border-price-highlight/20">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-4xl md:text-5xl font-bold text-price-highlight drop-shadow-sm">
                     ${product.price.toFixed(2)}
                   </span>
                   {product.discountPercentage > 0 && (
-                    <Badge variant="destructive" className="text-xs">
+                    <Badge variant="destructive" className="text-sm font-bold px-3 py-1 bg-gradient-to-r from-destructive to-destructive/80 shadow-lg animate-pulse">
                       -{product.discountPercentage}% OFF
                     </Badge>
                   )}
                 </div>
                 {product.discountPercentage > 0 && (
-                  <p className="text-sm text-muted-foreground line-through">
-                    ${(product.price / (1 - product.discountPercentage / 100)).toFixed(2)}
+                  <p className="text-base text-muted-foreground line-through font-medium">
+                    Original: ${(product.price / (1 - product.discountPercentage / 100)).toFixed(2)}
                   </p>
                 )}
               </div>
 
-              {/* Description */}
-              <div className="space-y-2">
-                <h3 className="font-medium text-foreground">Description</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+              {/* Enhanced Description */}
+              <div className="space-y-3 p-4 rounded-xl bg-gradient-to-br from-muted/30 to-transparent border border-muted/50">
+                <h3 className="font-semibold text-lg text-foreground flex items-center gap-2">
+                  <div className="w-1 h-6 bg-gradient-to-b from-primary to-primary-glow rounded-full"></div>
+                  Product Description
+                </h3>
+                <p className="text-base text-muted-foreground leading-relaxed font-medium">
                   {product.description}
                 </p>
               </div>
