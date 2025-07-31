@@ -26,7 +26,8 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -61,7 +62,11 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				'product-card': 'hsl(var(--product-card))',
+				'product-card-border': 'hsl(var(--product-card-border))',
+				'price-highlight': 'hsl(var(--price-highlight))',
+				'loading-bg': 'hsl(var(--loading-bg))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
